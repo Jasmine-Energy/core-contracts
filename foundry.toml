@@ -1,0 +1,46 @@
+[profile.default]
+src = 'src'
+out = 'out'
+libs = ['lib']
+via-ir = true
+optimizer = true
+optimizer_runs = 1000000
+
+[etherscan]
+mumbai =  { key = "${ETHERSCAN_API_KEY}", chain = "mumbai",  url = "https://api-testnet.polygonscan.com/" }
+polygon = { key = "${ETHERSCAN_API_KEY}", chain = "polygon", url = "https://api.polygonscan.com/" }
+
+[rpc_endpoints]
+local = "http://127.0.0.1:8545/"
+mumbai = "https://polygon-mumbai.infura.io/v3/${INFURA_API_KEY}"
+polygon = "https://polygon-mainnet.infura.io/v3/${INFURA_API_KEY}"
+
+[profile.local]
+chain_id = 31337
+src = 'src'
+out = 'out'
+libs = ['lib']
+via-ir = true
+optimizer = true
+optimizer_runs = 1000000
+
+[profile.mumbai]
+chain_id = 80001
+src = 'src'
+out = 'out'
+libs = ['lib']
+via-ir = true
+optimizer = true
+optimizer_runs = 1000000
+
+[profile.polygon]
+chain_id = 137
+src = 'src'
+out = 'out'
+libs = ['lib']
+via-ir = true
+optimizer = true
+optimizer_runs = 1000000
+
+
+# See more config options https://github.com/foundry-rs/foundry/tree/master/config

@@ -1,0 +1,28 @@
+# Compiler files
+cache/
+out/
+abi/
+artifacts/
+node_modules/
+typechain/
+cache_hardhat/
+.openzeppelin/
+deployments/
+
+# Ignores development broadcast logs
+!/broadcast
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+
+# Dotenv file
+.env
+.env.*
+*.env
+
+# Emacs detritus
+*~
+\#*\#
+.\#*
+
+# Private keys
+anvil.json

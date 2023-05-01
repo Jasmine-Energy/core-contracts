@@ -1,0 +1,63 @@
+{
+  "name": "@jasmine-energy/contracts",
+  "version": "1.0.1",
+  "description": "Smart contracts enabling a bridge for Jasmine Energy Tokens",
+  "license": "BUSL-1.1",
+  "author": "Jasmine Energy",
+  "homepage": "https://jasmine.energy",
+  "files": [
+    "src/**/*.sol",
+    "artifacts/src/interfaces/**/*.json",
+    "!artifacts/src/interfaces/**/*.dbg.json",
+    "artifacts/src/JasmineEAT/**/*.json",
+    "!artifacts/src/JasmineEAT/**/*.dbg.json",
+    "artifacts/src/JasmineMinter/**/*.json",
+    "!artifacts/src/JasmineMinter/**/*.dbg.json",
+    "artifacts/src/JasmineOracle/**/*.json",
+    "!artifacts/src/JasmineOracle/**/*.dbg.json"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jasmine-Energy/jasmine-contracts.git"
+  },
+  "scripts": {
+    "clean": "rimraf dist tsconfig.build.tsbuildinfo cache out",
+    "build": "npx hardhat compile",
+    "hardhat": "npx hardhat",
+    "test": "foundry test",
+    "start": "npx hardhat node --network hardhat",
+    "deploy:local": "source .env && if [[ $USE_LEDGER != \"true\" ]]; then echo \"\\x1b[36mKey Detected\\x1b[0m\" && npm run deploy:local:key; else echo \"\\x1b[36mLedger Detected\\x1b[0m\" && npm run deploy:local:ledger; fi",
+    "deploy:local:key": "source .env && forge script scripts/Deploy.s.sol:DeployScript --private-key $LOCAL_JASMINE_OWNER_KEY --broadcast --rpc-url $LOCAL_RPC_URL --chain-id 31337 --slow",
+    "deploy:local:ledger": "source .env && forge script scripts/Deploy.s.sol:DeployScript --ledger --broadcast --rpc-url $LOCAL_RPC_URL --chain-id 31337 --slow --hd-paths \"m/44'/60'/0'/0/0\"",
+    "deploy:mumbai": "source .env && if [[ $USE_LEDGER != \"true\" ]]; then echo \"\\x1b[36mKey Detected\\x1b[0m\" && npm run deploy:mumbai:key; else echo \"\\x1b[36mLedger Detected\\x1b[0m\" && npm run deploy:mumbai:ledger; fi",
+    "deploy:mumbai:key": "source .env && forge script scripts/Deploy.s.sol:DeployScript --private-key $MUMBAI_JASMINE_OWNER_KEY --slow -a $MUMBAI_JASMINE_OWNER --broadcast --rpc-url $MUMBAI_RPC_URL --chain-id 80001",
+    "deploy:mumbai:ledger": "source .env && forge script scripts/Deploy.s.sol:DeployScript --ledger --slow -a $MUMBAI_JASMINE_OWNER --broadcast --rpc-url $MUMBAI_RPC_URL --chain-id 80001",
+    "deploy:polygon": "source .env && if [[ $USE_LEDGER != \"true\" ]]; then echo \"\\x1b[36mKey Detected\\x1b[0m\" && npm run deploy:polygon:key; else echo \"\\x1b[36mLedger Detected\\x1b[0m\" && npm run deploy:polygon:ledger; fi",
+    "deploy:polygon:key": "source .env && forge script scripts/Deploy.s.sol:DeployScript --ledger --slow -a $POLYGON_JASMINE_OWNER --rpc-url $POLYGON_RPC_URL --chain-id 137",
+    "deploy:polygon:ledger": "source .env && forge script scripts/Deploy.s.sol:DeployScript --ledger --slow -a $POLYGON_JASMINE_OWNER --rpc-url $POLYGON_RPC_URL --chain-id 137 --hd-paths \"m/44'/60'/0'/0/0\" --sender $LEDGER_SENDER --broadcast",
+    "verify:mumbai": "source .env && nonce=$(cast nonce $MUMBAI_JASMINE_OWNER --rpc-url $MUMBAI_RPC_URL) && eatAddress=$((cast compute-address $MUMBAI_JASMINE_OWNER --nonce \"$(($nonce-6))\") | cut -d \" \" -f 3) && oracleAddress=$((cast compute-address $MUMBAI_JASMINE_OWNER --nonce \"$(($nonce-4))\") | cut -d \" \" -f 3) && minterAddress=$((cast compute-address $MUMBAI_JASMINE_OWNER --nonce \"$(($nonce-1))\") | cut -d \" \" -f 3) && forge verify-contract --chain 80001 --num-of-optimizations 1000000 --watch $eatAddress src/JasmineEAT.sol:JasmineEAT $ETHERSCAN_API_KEY && forge verify-contract --chain 80001 --num-of-optimizations 1000000 --watch $oracleAddress src/JasmineOracle.sol:JasmineOracle $ETHERSCAN_API_KEY && forge verify-contract --chain 80001 --num-of-optimizations 1000000 --watch $minterAddress src/JasmineMinter.sol:JasmineMinter $ETHERSCAN_API_KEY --constructor-args \"$(cast abi-encode \"constructor(address,address)\" $eatAddress $oracleAddress)\"",
+    "verify:polygon": "source .env && nonce=$(cast nonce $POLYGON_JASMINE_OWNER --rpc-url $POLYGON_RPC_URL) && eatAddress=$((cast compute-address $POLYGON_JASMINE_OWNER --nonce \"$(($nonce-6))\") | cut -d \" \" -f 3) && oracleAddress=$((cast compute-address $POLYGON_JASMINE_OWNER --nonce \"$(($nonce-4))\") | cut -d \" \" -f 3) && minterAddress=$((cast compute-address $POLYGON_JASMINE_OWNER --nonce \"$(($nonce-1))\") | cut -d \" \" -f 3) && forge verify-contract --chain 137 --num-of-optimizations 1000000 --watch $eatAddress src/JasmineEAT.sol:JasmineEAT $ETHERSCAN_API_KEY && forge verify-contract --chain 137 --num-of-optimizations 1000000 --watch $oracleAddress src/JasmineOracle.sol:JasmineOracle $ETHERSCAN_API_KEY && forge verify-contract --chain 137 --num-of-optimizations 1000000 --watch $minterAddress src/JasmineMinter.sol:JasmineMinter $ETHERSCAN_API_KEY --constructor-args \"$(cast abi-encode \"constructor(address,address)\" $eatAddress $oracleAddress)\""
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
+    "@nomiclabs/hardhat-ethers": "^2.2.1",
+    "@nomiclabs/hardhat-etherscan": "^3.1.4",
+    "@openzeppelin/contracts-upgradeable": "^4.8.0",
+    "@openzeppelin/hardhat-upgrades": "^1.22.0",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/hardhat": "^6.1.5",
+    "chai": "^4.2.0",
+    "dotenv": "^10.0.0",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.12.5",
+    "hardhat-abi-exporter": "^2.10.1",
+    "hardhat-deploy": "^0.11.22",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
+    "typechain": "^8.1.1",
+    "typescript": "^4.9.5"
+  }
+}
