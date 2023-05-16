@@ -68,13 +68,12 @@ task("mint", "Mints an EAT")
       // @ts-ignore
       const { JasmineMinter } = await import("@/typechain");
       // 1. Load required accounts, contracts and info
-      const { bridge } = await getNamedAccounts();
+      const { bridge, minter } = await getNamedAccounts();
       let minterSavedAddress;
       try {
         minterSavedAddress = (await deployments.get("JasmineMinter")).address;
       } catch {
-        console.error("No deployment for minter");
-        return
+        minterSavedAddress = minter;
       }
       const minterAddress = taskArgs.minter ?? minterSavedAddress;
       const signer = taskArgs.account
@@ -159,8 +158,7 @@ task("mint", "Mints an EAT")
       const result = await tx.wait();
 
       console.log(
-        "\x1b[36m%s\x1b[0m",
-        `Minted ${amount} tokens of ID: ${id} \nto: ${recipientAddress} \nTx: ${tx.hash}`
+        `Minted ${amount} tokens of ID ${id} to ${recipientAddress}. Tx: ${tx.hash}`
       );
 
       if (hardhatArguments.verbose) {
