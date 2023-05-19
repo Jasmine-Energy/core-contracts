@@ -4,6 +4,7 @@
   "description": "Smart contracts enabling a bridge for Jasmine Energy Tokens",
   "license": "BUSL-1.1",
   "author": "Jasmine Energy",
+  "private": false,
   "homepage": "https://jasmine.energy",
   "files": [
     "src/**/*.sol",
