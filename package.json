@@ -1,6 +1,6 @@
 {
   "name": "@jasmine-energy/contracts",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "Smart contracts enabling a bridge for Jasmine Energy Tokens",
   "license": "BUSL-1.1",
   "author": "Jasmine Energy",
@@ -17,11 +17,11 @@
     "!artifacts/src/JasmineOracle/**/*.dbg.json"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jasmine-Energy/jasmine-contracts.git"
+    "url": "git+https://github.com/Jasmine-Energy/core-contracts.git"
   },
   "scripts": {
     "clean": "rimraf dist tsconfig.build.tsbuildinfo cache out",
