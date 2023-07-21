@@ -1,5 +1,5 @@
 {
-  "name": "@jasmine-energy/contracts",
+  "name": "@jasmine-energy/core-contracts",
   "version": "1.0.0",
   "description": "Smart contracts enabling a bridge for Jasmine Energy Tokens",
   "license": "BUSL-1.1",
