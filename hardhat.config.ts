@@ -80,8 +80,12 @@ const config: HardhatUserConfig = {
   },
   abiExporter: {
     path: "./abi",
+    format: "json",
+    except: [
+      "@openzeppelin",
+    ],
     runOnCompile: true,
-    pretty: true,
+    clear: true,
   },
   typechain: {
     outDir: "./typechain",

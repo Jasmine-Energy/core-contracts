@@ -1,21 +1,20 @@
 {
   "name": "@jasmine-energy/core-contracts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Smart contracts enabling a bridge for Jasmine Energy Tokens",
   "license": "BUSL-1.1",
   "author": "Jasmine Energy",
   "private": false,
   "homepage": "https://jasmine.energy",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "src/**/*.sol",
-    "artifacts/src/interfaces/**/*.json",
-    "!artifacts/src/interfaces/**/*.dbg.json",
-    "artifacts/src/JasmineEAT/**/*.json",
-    "!artifacts/src/JasmineEAT/**/*.dbg.json",
-    "artifacts/src/JasmineMinter/**/*.json",
-    "!artifacts/src/JasmineMinter/**/*.dbg.json",
-    "artifacts/src/JasmineOracle/**/*.json",
-    "!artifacts/src/JasmineOracle/**/*.dbg.json"
+    "abi/src/**/*.json",
+    "typechain/factories/src/**/*.ts",
+    "typechain/src/**/*.ts",
+    "index.ts",
+    "dist"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +25,8 @@
   },
   "scripts": {
     "clean": "rimraf dist tsconfig.build.tsbuildinfo cache out",
-    "build": "npx hardhat compile",
+    "build": "npx hardhat compile && npm run build:ts",
+    "build:ts": "tsc -p tsconfig.build.json",
     "hardhat": "npx hardhat",
     "test": "foundry test",
     "start": "npx hardhat node --network hardhat",

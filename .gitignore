@@ -1,13 +1,12 @@
 # Compiler files
 cache/
 out/
-abi/
 artifacts/
 node_modules/
-typechain/
 cache_hardhat/
 .openzeppelin/
 deployments/
+**/tsconfig.build.tsbuildinfo
 
 # Ignores development broadcast logs
 !/broadcast
