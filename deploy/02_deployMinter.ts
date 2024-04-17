@@ -30,7 +30,7 @@ const deployMinter: DeployFunction = async function ({
   const Minter = await ethers.getContractFactory(contractName, ownerSigner);
   const minterArgs = [
     contractName, 
-    '1', 
+    minterVersion, 
     bridgeAddress,
     owner
 ];
@@ -89,14 +89,12 @@ const deployMinter: DeployFunction = async function ({
   });
 
   // 5. Verify on Etherscan
-  if (network.name == "mumbai" || network.name == "goerli") {
-    try {
-      await hre.run("verify:verify", {
-        address: minter.address,
-        constructorArguments: minterArgs,
-      });
-    } catch {}
-  }
+  try {
+    await hre.run("verify:verify", {
+      address: minter.address,
+      constructorArguments: minterArgs,
+    });
+  } catch {}
 };
 deployMinter.tags = ["Minter", "all"];
 export default deployMinter;

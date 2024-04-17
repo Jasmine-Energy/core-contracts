@@ -4,8 +4,9 @@ out/
 artifacts/
 node_modules/
 cache_hardhat/
-.openzeppelin/
-deployments/
+.openzeppelin/unknown-31337.json
+deployments/localhost
+deployments/hardhat
 **/tsconfig.build.tsbuildinfo
 
 # Ignores development broadcast logs

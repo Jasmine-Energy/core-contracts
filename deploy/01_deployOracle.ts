@@ -57,14 +57,12 @@ const deployOracle: DeployFunction = async function ({
   });
 
   // 4. Verify on Etherscan
-  if (network.name == "mumbai" || network.name == "goerli") {
-    try {
-      await hre.run("verify:verify", {
-        address: oracle.address,
-        constructorArguments: oracleArgs,
-      });
-    } catch {}
-  }
+  try {
+    await hre.run("verify:verify", {
+      address: oracle.address,
+      constructorArguments: oracleArgs,
+    });
+  } catch {}
 };
 deployOracle.tags = ["Oracle", "all"];
 export default deployOracle;

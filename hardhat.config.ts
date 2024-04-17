@@ -53,6 +53,11 @@ const config: HardhatUserConfig = {
     localhost: {
       url: "http://127.0.0.1:8545",
     },
+    amoy: {
+      url: `https://polygon-amoy.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts,
+      chainId: 80002,
+    },
     mumbai: {
       url: "https://matic-testnet-archive-rpc.bwarelabs.com",
       accounts,
@@ -60,7 +65,8 @@ const config: HardhatUserConfig = {
     },
     polygon: {
       url: `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
-      chainId: 137
+      chainId: 137,
+      live: true,
     }
   },
   namedAccounts: {
@@ -69,6 +75,7 @@ const config: HardhatUserConfig = {
       localhost: process.env.LOCAL_JASMINE_BRIDGE ?? 1,
       hardhat: process.env.LOCAL_JASMINE_BRIDGE ?? 1,
       polygon: process.env.POLYGON_JASMINE_BRIDGE ?? "0xf752f0300333d53982dd8c128ca077f17cb8c405",
+      amoy: process.env.AMOY_JASMINE_BRIDGE ?? "0x2dcad29de8a67d70b7b5bf32b19f1480f333d8dd",
       mumbai: process.env.MUMBAI_JASMINE_BRIDGE ?? "0x2dcad29de8a67d70b7b5bf32b19f1480f333d8dd",
     }
   },
@@ -92,6 +99,16 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
+    customChains: [
+      {
+        network: "amoy",
+        chainId: 80002,
+        urls: {
+          apiURL: "https://api-amoy.polygonscan.com/api",
+          browserURL: "https://amoy.polygonscan.com"
+        }
+      }
+    ]
   }
 };
 
