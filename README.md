@@ -9,7 +9,8 @@
 
 ## Meta
 
-### Polygon Deployment:
+### Polygon Deployment
+
 **Deployer:** [`0xe3a305455c71944ec7c5b85b845c617fa6f6ccd7`](https://polygonscan.com/address/0xe3a305455c71944ec7c5b85b845c617fa6f6ccd7)
 | Contract      | Proxy address                              | Implementation address                     |
 |---------------|--------------------------------------------|--------------------------------------------|
@@ -17,13 +18,14 @@
 | JasmineOracle | [`0x954f12ab1e40fbd7c28f2ab5285d3c74ba6faf6f`](https://polygonscan.com/address/0x954f12ab1e40fbd7c28f2ab5285d3c74ba6faf6f#readProxyContract) | [`0xe19cd2ce2b3b082fd9b879ccf508672455a24c66`](https://polygonscan.com/address/0xe19cd2ce2b3b082fd9b879ccf508672455a24c66#code) |
 | JasmineMinter | [`0x5e71fa178f3b8ca0fc4736b8a85a1b669c042dde`](https://polygonscan.com/address/0x5e71fa178f3b8ca0fc4736b8a85a1b669c042dde#readProxyContract) | [`0xe58160776da8b66bb42e7926438e67f5f590f438`](https://polygonscan.com/address/0xe58160776da8b66bb42e7926438e67f5f590f438#code) |
 
-### Mumbai Deployment:
-**Deployer:** [`0x77f774c6632b1ca6bd248068fbaa952355eae2b5`](https://mumbai.polygonscan.com/address/0x77f774c6632b1ca6bd248068fbaa952355eae2b5)
+### Amoy Deployment
+
+**Deployer:** [`0x0B98574958b84F1E2F8FF48cCb07A3c8d4211804`](https://amoy.polygonscan.com/address/0x0B98574958b84F1E2F8FF48cCb07A3c8d4211804)
 | Contract      | Proxy address                              | Implementation address                     |
 |---------------|--------------------------------------------|--------------------------------------------|
-| JasmineEAT    | [`0xae205e00c7dcb5292388bd8962e79582a5ae14d0`](https://mumbai.polygonscan.com/address/0xae205e00c7dcb5292388bd8962e79582a5ae14d0#readProxyContract) | [`0xa41Ee73984a9DAD0fA22937DB3097EBFE4cee791`](https://mumbai.polygonscan.com/address/0xa41ee73984a9dad0fa22937db3097ebfe4cee791#code) |
-| JasmineOracle | [`0x3F3f61a613504166302C5Ee3546b0e85c0a61934`](https://mumbai.polygonscan.com/address/0x3f3f61a613504166302c5ee3546b0e85c0a61934#readProxyContract) | [`0xBe400BE8c7D1615469e6874F89F3cE14AdF2765b`](https://mumbai.polygonscan.com/address/0xBe400BE8c7D1615469e6874F89F3cE14AdF2765b#code) |
-| JasmineMinter | [`0xe9c135b9fb2942982e3df5b89a03e51d8ee6cb74`](https://mumbai.polygonscan.com/address/0xe9c135b9fb2942982e3df5b89a03e51d8ee6cb74#readProxyContract) | [`0x4072Ff0d59436Ce70a63EAadFD32a2240603Fc14`](https://mumbai.polygonscan.com/address/0x4072Ff0d59436Ce70a63EAadFD32a2240603Fc14#code) |
+| JasmineEAT    | [`0x4586AAa40f251E79bEf567FC74d4Cb55bb39D5EA`](https://amoy.polygonscan.com/address/0x4586AAa40f251E79bEf567FC74d4Cb55bb39D5EA#readProxyContract) | [`0xd3E1bc0397fA5800278090dF074e2EF12CB71301`](https://amoy.polygonscan.com/address/0xd3E1bc0397fA5800278090dF074e2EF12CB71301#code) |
+| JasmineOracle | [`0x402d7E62Eccc433B2f02f4F51dc8ACA3A2Bc76c7`](https://amoy.polygonscan.com/address/0x402d7E62Eccc433B2f02f4F51dc8ACA3A2Bc76c7#readProxyContract) | [`0x08B6BbEff9c895A533fE85bC0Beb0F4874021210`](https://amoy.polygonscan.com/address/0x08B6BbEff9c895A533fE85bC0Beb0F4874021210#code) |
+| JasmineMinter | [`0x9E0CEccF495bf9d4fdB5e85417029c6fF7669c85`](https://amoy.polygonscan.com/address/0x9E0CEccF495bf9d4fdB5e85417029c6fF7669c85#readProxyContract) | [`0x1313f299Fc4fed5280e907d1b6f5ACd7c2128C04`](https://amoy.polygonscan.com/address/0x1313f299Fc4fed5280e907d1b6f5ACd7c2128C04#code) |
 
 ## Overview
 
@@ -59,6 +61,7 @@ future upgrade.
 #### Invalidation
 
 Invalidation of an EAT is performed in a few cases:
+
 * there was an error in transferring the attributes of the underlying EAC to the
   EAT
 * the underlying EAC is junk
@@ -148,7 +151,7 @@ This procedure does not block the bridge-on, bridge-off, or redemption of
 unrelated tokens. It is only the affected token series that is blocked until the
 nonce is invalidated and finalized. Additionally, if the criterion in step 4 is
 not satisfied or if the mistaken token has already been minted on-chain, the
-only recourse is to follow the [freeze-then-slash procedure](#Invalidation).
+only recourse is to follow the [freeze-then-slash procedure](#invalidation).
 
 #### Bridge-off
 

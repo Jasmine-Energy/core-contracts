@@ -1,0 +1,37 @@
+{
+  "address": "0x402d7E62Eccc433B2f02f4F51dc8ACA3A2Bc76c7",
+  "abi": [
+    "event AdminChanged(address previousAdmin, address newAdmin)",
+    "event BeaconUpgraded(address indexed beacon)",
+    "event Initialized(uint8 version)",
+    "event MinterChanged(address indexed newMinter)",
+    "event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner)",
+    "event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)",
+    "event Upgraded(address indexed implementation)",
+    "function acceptOwnership()",
+    "function getUUID(uint256 id) pure returns (uint128)",
+    "function hasCertificateType(uint256 id, uint256 query) view returns (bool)",
+    "function hasEndorsement(uint256 id, uint256 query) view returns (bool)",
+    "function hasFuel(uint256 id, uint256 query) view returns (bool)",
+    "function hasRegistry(uint256 id, uint256 query) pure returns (bool)",
+    "function hasVintage(uint256 id, uint256 min, uint256 max) pure returns (bool)",
+    "function initialize(address initialMinter, address initialOwner)",
+    "function minter() view returns (address)",
+    "function owner() view returns (address)",
+    "function pendingOwner() view returns (address)",
+    "function proxiableUUID() view returns (bytes32)",
+    "function renounceOwnership()",
+    "function setMinter(address newMinter)",
+    "function transferOwnership(address newOwner)",
+    "function updateSeries(uint256 id, bytes encodedMetadata)",
+    "function upgradeTo(address newImplementation)",
+    "function upgradeToAndCall(address newImplementation, bytes data) payable"
+  ],
+  "transactionHash": "0xb03ba1520f8c0a79a6959f01ea3197ffe468d6d8dd12d4b08b57c789b7960e56",
+  "args": [
+    "0x9E0CEccF495bf9d4fdB5e85417029c6fF7669c85",
+    "0x0B98574958b84F1E2F8FF48cCb07A3c8d4211804"
+  ],
+  "numDeployments": 1,
+  "implementation": "0x08B6BbEff9c895A533fE85bC0Beb0F4874021210"
+}

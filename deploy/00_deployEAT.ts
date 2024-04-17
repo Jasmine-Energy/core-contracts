@@ -14,7 +14,7 @@ const deployEAT: DeployFunction = async function (
 
   // 1. Get constructor args
   const contractName = "JasmineEAT";
-  const tokenURI = process.env.EAT_URI ?? "https://api.jasmine.energy/v1/eat/{id}.json";
+  const tokenURI = process.env.EAT_URI ?? (network.live ? "https://api.jasmine.energy/v1/eat/{id}.json" : "https://api.jazzmine.xyz/v1/eat/{id}.json");
   const ownerNonce = await ownerSigner.getTransactionCount();
   const pendingTxs = 5;
   const futureMinterAddress = getContractAddress({
@@ -53,14 +53,12 @@ const deployEAT: DeployFunction = async function (
   });
 
   // 4. Verify on Etherscan
-  if (network.name == "mumbai" || network.name == "goerli") {
-    try {
-      await hre.run("verify:verify", {
-        address: eat.address,
-        constructorArguments: eatArgs,
-      });
-    } catch {}
-  }
+  try {
+    await hre.run("verify:verify", {
+      address: eat.address,
+      constructorArguments: eatArgs,
+    });
+  } catch {}
 };
 deployEAT.tags = ["EAT", "all"];
 export default deployEAT;
