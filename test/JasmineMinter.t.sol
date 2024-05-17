@@ -5,7 +5,7 @@ import "forge-std/Test.sol";
 import {console} from "forge-std/console.sol";
 import {JasmineMinter} from "src/JasmineMinter.sol";
 import {JasmineEAT} from "src/JasmineEAT.sol";
-import {JasmineOracle} from "src/JasmineOracle.sol";
+import {JasmineOracleV1 as JasmineOracle} from "src/versions/JasmineOracleV1.sol";
 import {ERC1967UUPSProxy} from "src/ERC1967UUPSProxy.sol";
 
 contract JasmineMinterTest is Test {
