@@ -56,3 +56,7 @@ export type { JasmineMinter } from "./src/JasmineMinter";
 export { JasmineMinter__factory } from "./factories/src/JasmineMinter__factory";
 export type { JasmineOracle } from "./src/JasmineOracle";
 export { JasmineOracle__factory } from "./factories/src/JasmineOracle__factory";
+export type { JasmineOracleV2 } from "./src/JasmineOracleV2";
+export { JasmineOracleV2__factory } from "./factories/src/JasmineOracleV2__factory";
+export type { JasmineOracleV1 } from "./src/versions/JasmineOracleV1";
+export { JasmineOracleV1__factory } from "./factories/src/versions/JasmineOracleV1__factory";

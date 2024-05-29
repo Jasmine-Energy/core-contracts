@@ -12,6 +12,7 @@
   },
   "include": [
     "./deploy",
+    "./scripts",
     "./tasks",
     "./utils",
     "./types",

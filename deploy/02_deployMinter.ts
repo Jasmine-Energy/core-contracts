@@ -20,7 +20,7 @@ const deployMinter: DeployFunction = async function ({
   // 1. Get constructor args
   const contractName = "JasmineMinter";
   const eatContractName = "JasmineEAT";
-  const oracleContractName = "JasmineOracle";
+  const oracleContractName = "JasmineOracleV1";
   const minterVersion = "1";
   const bridgeAddress = process.env.LOCAL_JASMINE_BRIDGE;
   const eatDeployment = await deployments.get(eatContractName);

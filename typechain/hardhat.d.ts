@@ -112,6 +112,14 @@ declare module "hardhat/types/runtime" {
       name: "JasmineOracle",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.JasmineOracle__factory>;
+    getContractFactory(
+      name: "JasmineOracleV2",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.JasmineOracleV2__factory>;
+    getContractFactory(
+      name: "JasmineOracleV1",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.JasmineOracleV1__factory>;
 
     getContractAt(
       name: "Ownable2StepUpgradeable",
@@ -238,6 +246,16 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.JasmineOracle>;
+    getContractAt(
+      name: "JasmineOracleV2",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.JasmineOracleV2>;
+    getContractAt(
+      name: "JasmineOracleV1",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.JasmineOracleV1>;
 
     // default types
     getContractFactory(
