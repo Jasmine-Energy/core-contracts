@@ -3,6 +3,9 @@
 /* eslint-disable */
 import type * as interfaces from "./interfaces";
 export type { interfaces };
+import type * as versions from "./versions";
+export type { versions };
 export type { JasmineEAT } from "./JasmineEAT";
 export type { JasmineMinter } from "./JasmineMinter";
 export type { JasmineOracle } from "./JasmineOracle";
+export type { JasmineOracleV2 } from "./JasmineOracleV2";

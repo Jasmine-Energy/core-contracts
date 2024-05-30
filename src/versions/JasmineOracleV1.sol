@@ -7,12 +7,12 @@ import {
 import {
   UUPSUpgradeable
 } from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
-import {IJasmineOracle} from "./interfaces/IJasmineOracle.sol";
+import {IJasmineOracle} from "../interfaces/IJasmineOracle.sol";
 
 /// @dev This contract is upgradeable. You can only append new contracts to the list of bases. You cannot delete bases or reorder them.
 /// @notice This contract stores the machine-readable metadata about each EAT series. This is used to determine whether a particular EAT is eligible for certain on-chain uses (e.g. membership in a solar-only EAT pool).
 /// @custom:security-contact kai.aldag@jasmine.energy
-contract JasmineOracle is Ownable2StepUpgradeable, UUPSUpgradeable, IJasmineOracle {
+contract JasmineOracleV1 is Ownable2StepUpgradeable, UUPSUpgradeable, IJasmineOracle {
   /// @dev We use the `Ownable` owner for upgrades, not the ERC1967 admin. The ERC1967 admin is not used by this contract.
   function _authorizeUpgrade(address) internal override onlyOwner {}
 
@@ -118,7 +118,8 @@ contract JasmineOracle is Ownable2StepUpgradeable, UUPSUpgradeable, IJasmineOrac
   // | 6        | endorsement      | 32         |
   // The version is currently always 1. A change to the version version corresponds to an update to the metadata format.
   function updateSeries(uint256 id, bytes memory encodedMetadata)
-    external
+    public
+    virtual
     override
     onlyMinter
   {

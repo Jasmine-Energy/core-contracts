@@ -2,11 +2,12 @@
 pragma solidity 0.8.17;
 
 import "forge-std/Test.sol";
-import {JasmineOracle} from "src/JasmineOracle.sol";
+import {JasmineOracleV1} from "src/versions/JasmineOracleV1.sol";
+import {JasmineOracleV2} from "src/JasmineOracleV2.sol";
 import {ERC1967UUPSProxy} from "src/ERC1967UUPSProxy.sol";
 
 contract JasmineOracleTest is Test {
-  JasmineOracle internal oracle;
+  JasmineOracleV1 internal oracle;
 
   bytes32 internal constant _IMPLEMENTATION_SLOT =
     bytes32(uint256(keccak256("eip1967.proxy.implementation")) - 1);
@@ -17,9 +18,9 @@ contract JasmineOracleTest is Test {
     vm.label(minter, "minter");
     vm.label(nobody, "nobody");
 
-    JasmineOracle impl = new JasmineOracle();
+    JasmineOracleV1 impl = new JasmineOracleV1();
     vm.label(address(impl), "JasmineOracle implementation");
-    oracle = JasmineOracle(
+    oracle = JasmineOracleV1(
       ERC1967UUPSProxy.create(address(impl), abi.encodeCall(impl.initialize, (minter, address(this))))
     );
     vm.label(address(oracle), "JasmineOracle");
@@ -28,7 +29,7 @@ contract JasmineOracleTest is Test {
   event Upgraded(address indexed implementation);
 
   function testUpgrade() external {
-    JasmineOracle newImpl = new JasmineOracle();
+    JasmineOracleV2 newImpl = new JasmineOracleV2();
     vm.label(address(newImpl), "JasmineOracle new implementation");
     bytes32 originalImpl = vm.load(address(oracle), _IMPLEMENTATION_SLOT);
     assertLe(uint256(originalImpl), type(uint160).max);
@@ -77,5 +78,49 @@ contract JasmineOracleTest is Test {
     assertTrue(oracle.hasFuel(id, 1));
     assertTrue(oracle.hasCertificateType(id, 1));
     assertTrue(oracle.hasEndorsement(id, 1));
+  }
+
+  function testV2UpdateSeries() external {
+    JasmineOracleV2 newImpl = new JasmineOracleV2();
+    vm.label(address(newImpl), "JasmineOracle new implementation");
+    oracle.upgradeTo(address(newImpl));
+
+    JasmineOracleV2 oracleV2 = JasmineOracleV2(address(oracle));
+
+    uint128 uuid = uint128(uint256(keccak256("uuid")));
+    uint32 registry = 1;
+    uint40 vintage = uint40(block.timestamp);
+    uint256 id = (uint256(uuid) << 128) |
+      (uint256(registry) << 96) |
+      (uint256(vintage) << 56);
+    
+    uint8 version = 2;
+    uint16 countryCode = 42;
+    uint16 regionCode = 42;
+    uint16 subRegionCode = 42;
+    bytes memory metadata = abi.encode(
+      version,
+      uuid,
+      registry,
+      vintage,
+      uint32(1),
+      uint32(1),
+      uint32(1),
+      countryCode,
+      regionCode,
+      subRegionCode
+    );
+
+    vm.prank(minter); oracleV2.updateSeries(id, metadata);
+    assertEq(oracleV2.getUUID(id), uuid);
+    assertEq(oracleV2.getFuelType(id), 1);
+    assertEq(oracleV2.getCertificateType(id), 1);
+    assertEq(oracleV2.getEndorsement(id), 1);
+    assertEq(oracleV2.getRegistry(id), registry);
+    assertEq(oracleV2.getVintage(id), vintage);
+    (uint16 actualCountryCode, uint16 actualRegionCode, uint16 actualSubRegionCode) = oracleV2.getLocationData(id);
+    assertEq(actualCountryCode, countryCode);
+    assertEq(actualRegionCode, regionCode);
+    assertEq(actualSubRegionCode, subRegionCode);
   }
 }

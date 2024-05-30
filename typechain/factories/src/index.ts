@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as interfaces from "./interfaces";
+export * as versions from "./versions";
 export { JasmineEAT__factory } from "./JasmineEAT__factory";
 export { JasmineMinter__factory } from "./JasmineMinter__factory";
 export { JasmineOracle__factory } from "./JasmineOracle__factory";
+export { JasmineOracleV2__factory } from "./JasmineOracleV2__factory";

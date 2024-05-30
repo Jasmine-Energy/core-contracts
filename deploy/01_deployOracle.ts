@@ -19,7 +19,7 @@ const deployOracle: DeployFunction = async function ({
   let pendingTxs: number = 3;
 
   // 1. Get constructor args
-  const contractName = "JasmineOracle";
+  const contractName = "JasmineOracleV1";
   const ownerNonce = await ownerSigner.getTransactionCount();
 
   const futureMinterAddress = getContractAddress({

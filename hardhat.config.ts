@@ -14,7 +14,7 @@ dotenv.config();
 
 import "./tasks";
 
-
+const POLYSCAN_API_KEY = process.env.POLYSCAN_API_KEY;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 
 const mnemonic = process.env.MNEMONIC;
@@ -32,6 +32,7 @@ const config: HardhatUserConfig = {
       {
         version: "0.8.17",
         settings: {
+          viaIR: true,
           optimizer: {
             enabled: true,
             runs: 250,
@@ -52,6 +53,11 @@ const config: HardhatUserConfig = {
     },
     localhost: {
       url: "http://127.0.0.1:8545",
+    },
+    sepolia: {
+      chainId: 11155111,
+      accounts,
+      url: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
     amoy: {
       url: `https://polygon-amoy.infura.io/v3/${process.env.INFURA_API_KEY}`,
@@ -75,6 +81,7 @@ const config: HardhatUserConfig = {
       localhost: process.env.LOCAL_JASMINE_BRIDGE ?? 1,
       hardhat: process.env.LOCAL_JASMINE_BRIDGE ?? 1,
       polygon: process.env.POLYGON_JASMINE_BRIDGE ?? "0xf752f0300333d53982dd8c128ca077f17cb8c405",
+      sepolia: process.env.SEPOLIA_JASMINE_BRIDGE ?? "0x2dcad29de8a67d70b7b5bf32b19f1480f333d8dd",
       amoy: process.env.AMOY_JASMINE_BRIDGE ?? "0x2dcad29de8a67d70b7b5bf32b19f1480f333d8dd",
       mumbai: process.env.MUMBAI_JASMINE_BRIDGE ?? "0x2dcad29de8a67d70b7b5bf32b19f1480f333d8dd",
     }
@@ -98,18 +105,22 @@ const config: HardhatUserConfig = {
     outDir: "./typechain",
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY,
+    apiKey: {
+        polygon: POLYSCAN_API_KEY ?? '',
+        amoy: POLYSCAN_API_KEY ?? '',
+        sepolia: ETHERSCAN_API_KEY ?? '',
+    },
     customChains: [
-      {
-        network: "amoy",
-        chainId: 80002,
-        urls: {
-          apiURL: "https://api-amoy.polygonscan.com/api",
-          browserURL: "https://amoy.polygonscan.com"
-        }
-      }
-    ]
-  }
+        {
+            network: 'amoy',
+            chainId: 80002,
+            urls: {
+                apiURL: 'https://api-amoy.polygonscan.com/api',
+                browserURL: 'https://amoy.polygonscan.com',
+            },
+        },
+    ],
+},
 };
 
 export default config;
